@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>佛山一日功夫线 · 导航地图</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden}
+#map{width:100%;height:100vh}
+.leaflet-popup-content-wrapper{border-radius:16px!important;box-shadow:0 8px 30px rgba(0,0,0,.22)!important;padding:0!important}
+.leaflet-popup-content{margin:0!important;min-width:240px}
+.leaflet-popup-tip{box-shadow:none!important}
+.popup{padding:18px 20px 16px}
+.popup .badge{display:inline-block;padding:3px 12px;border-radius:20px;color:#fff;font-size:12px;font-weight:700;margin-bottom:8px}
+.popup h3{font-size:17px;font-weight:700;color:#1a1a2e;margin-bottom:3px}
+.popup .addr{font-size:12px;color:#999;margin-bottom:8px}
+.popup .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.popup .tag{font-size:11px;padding:2px 9px;border-radius:12px;background:#f0f2f5;color:#666}
+.popup .route-row{display:flex;align-items:center;gap:8px;font-size:12px;color:#888;margin-bottom:12px;padding:8px 12px;background:#f8f9fa;border-radius:10px}
+.popup .btns{display:flex;gap:8px}
+.popup .btn{flex:1;text-align:center;padding:11px 0;border-radius:12px;font-size:14px;font-weight:600;text-decoration:none;color:#fff;display:block;transition:opacity .15s}
+.popup .btn:active{opacity:.7}
+.popup .btn-drive{background:#3498db}
+.popup .btn-bus{background:#27ae60}
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;padding:10px 16px;display:flex;align-items:center;gap:8px;z-index:1000;box-shadow:0 -2px 12px rgba(0,0,0,.08)}
+.bottom-bar .stop-btn{flex:1;text-align:center;padding:10px 6px;border-radius:12px;border:2px solid #eee;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:#f5f5f5;color:#333}
+.bottom-bar .stop-btn:active,.bottom-bar .stop-btn.active{transform:scale(.96)}
+.bottom-bar .stop-btn .num{display:inline-block;width:20px;height:20px;border-radius:50%;color:#fff;font-size:11px;line-height:20px;text-align:center;margin-right:4px;font-weight:700}
+.title-bar{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);padding:12px 16px;z-index:1000;display:flex;align-items:center;gap:10px;box-shadow:0 1px 8px rgba(0,0,0,.06)}
+.title-bar h1{font-size:17px;font-weight:700;color:#1a1a2e}
+.title-bar .sub{font-size:11px;color:#999}
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head><body>
+
+<div class="title-bar">
+  <div>
+    <h1>🥋 佛山一日功夫线</h1>
+    <div class="sub">点击地图标记或下方按钮选择目的地</div>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<div class="bottom-bar" id="bottomBar"></div>
+
+<script>
+var pois = [
+  {name:'佛山祖庙博物馆',lng:113.113510,lat:23.028945,color:'#E74C3C',
+   addr:'禅城区祖庙路21号',tags:['\u2b50 4.7','08:30-18:00','20\u5143','叶问堂','醒狮表演'],
+   fromPrev:null},
+  {name:'黄飞鸿纪念馆',lng:113.113856,lat:23.029995,color:'#C0392B',
+   addr:'禅城区祖庙路新文街29号',tags:['\u2b50 4.6','含祖庙门票','装修中'],
+   fromPrev:{dist:'130 m',drive:'\u6b65\u884c 2 \u5206\u949f',taxi:'\u514d\u8d39'}},
+  {name:'叶问堂',lng:113.113207,lat:23.029314,color:'#E74C3C',
+   addr:'禅城区祖庙路21号（祖庙景区内）',tags:['\u2b50 4.5','含祖庙门票','咏春宗师'],
+   fromPrev:{dist:'80 m',drive:'\u6b65\u884c 1 \u5206\u949f',taxi:'\u514d\u8d39'}},
+  {name:'飞鸿街',lng:113.114055,lat:23.030161,color:'#F39C12',
+   addr:'禅城区祖庙路新文街',tags:['\u514d\u8d39','功夫主题','手信街','盲公丸'],
+   fromPrev:{dist:'100 m',drive:'\u6b65\u884c 2 \u5206\u949f',taxi:'\u514d\u8d39'}},
+  {name:'岭南天地',lng:113.116275,lat:23.029927,color:'#E67E22',
+   addr:'禅城区祖庙大街2号',tags:['\u514d\u8d39','\u2b50 4.6','岭南建筑','美食街'],
+   fromPrev:{dist:'230 m',drive:'\u6b65\u884c 4 \u5206\u949f',taxi:'\u514d\u8d39'}},
+  {name:'叶问咏春崇华拳馆',lng:113.101777,lat:23.054296,color:'#2980B9',
+   addr:'禅城区佛山大道北34号',tags:['\u2b50 4.5','咏春体验','木人桩','周二至周日'],
+   fromPrev:{dist:'4.6 km',drive:'~11 \u5206\u949f',taxi:'~\u00a514'}},
+  {name:'叶问宗师馆',lng:113.092699,lat:23.063952,color:'#27AE60',
+   addr:'南海区狮山镇乐安西街21号',tags:['\u2b50 4.4','咏春发源地','朝圣地'],
+   fromPrev:{dist:'2.4 km',drive:'~7 \u5206\u949f',taxi:'~\u00a58'}}
+];
+
+var map = L.map('map',{zoomControl:false,attributionControl:false}).setView([23.040,113.108],13);
+L.control.zoom({position:'topright'}).addTo(map);
+
+L.tileLayer('https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}',{
+  subdomains:['1','2','3','4'],maxZoom:18
+}).addTo(map);
+
+var markers = [];
+
+// Draw dashed route lines
+for(var i=0;i<pois.length-1;i++){
+  var c1=[pois[i].lat,pois[i].lng], c2=[pois[i+1].lat,pois[i+1].lng];
+  L.polyline([c1,c2],{color:pois[i].color,weight:3,opacity:.55,dashArray:'10,8',lineCap:'round'}).addTo(map);
+  if(pois[i+1].fromPrev){
+    var mid=[(c1[0]+c2[0])/2,(c1[1]+c2[1])/2];
+    var ld=L.divIcon({className:'',
+      html:'<div style="background:#fff;padding:3px 10px;border-radius:12px;font-size:11px;color:#555;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.12);border:1px solid #e8e8e8;font-weight:500">'+pois[i+1].fromPrev.dist+' \u00b7 '+pois[i+1].fromPrev.drive+'</div>',
+      iconAnchor:[40,10]});
+    L.marker(mid,{icon:ld,interactive:false,zIndexOffset:-100}).addTo(map);
+  }
+}
+
+// Add markers
+pois.forEach(function(poi,i){
+  var icon=L.divIcon({className:'',
+    html:'<div style="background:'+poi.color+';color:#fff;width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:20px;box-shadow:0 3px 14px rgba(0,0,0,.35);border:3px solid #fff;cursor:pointer">'+(i+1)+'</div>',
+    iconSize:[38,38],iconAnchor:[19,19],popupAnchor:[0,-24]});
+
+  var navUrl='https://uri.amap.com/navigation?to='+poi.lng+','+poi.lat+','+encodeURIComponent(poi.name)+'&mode=car&coordinate=gaode&callnative=0';
+  var busUrl='https://uri.amap.com/navigation?to='+poi.lng+','+poi.lat+','+encodeURIComponent(poi.name)+'&mode=bus&coordinate=gaode&callnative=0';
+
+  var tagsHtml=poi.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join('');
+  var routeHtml='';
+  if(poi.fromPrev){
+    routeHtml='<div class="route-row"><span style="font-size:16px">\ud83d\udccd</span> \u8ddd\u4e0a\u7ad9 <b>'+poi.fromPrev.dist+'</b> \u00b7 '+poi.fromPrev.drive+' \u00b7 \u6253\u8f66 '+poi.fromPrev.taxi+'</div>';
+  }
+
+  var popupHtml='<div class="popup">'
+    +'<span class="badge" style="background:'+poi.color+'">\u7b2c'+(i+1)+'\u7ad9</span>'
+    +'<h3>'+poi.name+'</h3>'
+    +'<div class="addr">'+poi.addr+'</div>'
+    +'<div class="tags">'+tagsHtml+'</div>'
+    +routeHtml
+    +'<div class="btns">'
+    +'<a class="btn btn-drive" href="'+navUrl+'">\ud83d\ude97 \u9a7e\u8f66\u5bfc\u822a</a>'
+    +'<a class="btn btn-bus" href="'+busUrl+'">\ud83d\ude8c \u516c\u4ea4\u5bfc\u822a</a>'
+    +'</div></div>';
+
+  var m=L.marker([poi.lat,poi.lng],{icon:icon}).addTo(map).bindPopup(popupHtml,{maxWidth:280,closeButton:true});
+  markers.push(m);
+});
+
+// Bottom bar buttons
+var bar=document.getElementById('bottomBar');
+pois.forEach(function(poi,i){
+  var shortName=poi.name
+    .replace('\u4f5b\u5c71\u5e02','')
+    .replace('\u53f6\u95ee\u548f\u6625','')
+    .replace('\u535a\u7269\u9986','')
+    .replace('\u7eaa\u5ff5\u9986','\u9986')
+    .replace('\u5d07\u534e\u62f3\u9986','\u62f3\u9986')
+    .replace('\u5b97\u5e08\u9986','\u5b97\u5e08\u9986');
+  var btn=document.createElement('div');
+  btn.className='stop-btn';
+  btn.innerHTML='<span class="num" style="background:'+poi.color+'">'+(i+1)+'</span>'+shortName;
+  btn.onclick=function(){
+    map.setView([poi.lat,poi.lng],15,{animate:true});
+    markers[i].openPopup();
+    document.querySelectorAll('.stop-btn').forEach(function(b){b.classList.remove('active');b.style.borderColor='#eee';b.style.background='#f5f5f5'});
+    btn.classList.add('active');
+    btn.style.borderColor=poi.color;
+    btn.style.background=poi.color+'18';
+  };
+  bar.appendChild(btn);
+});
+
+// Auto open first marker
+setTimeout(function(){markers[0].openPopup();document.querySelector('.stop-btn').click()},600);
+</script>
+</body></html>
