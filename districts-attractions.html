@@ -35,6 +35,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .poi-item .btn-bus{background:#27ae60}
 .poi-item .btn-tel{background:#9b59b6}
 .poi-marker{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,.3);border:2px solid #fff;cursor:pointer}
+
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #eee;padding:10px 12px;display:flex;align-items:center;gap:6px;z-index:1000;box-shadow:0 -2px 12px rgba(0,0,0,.08)}
+.bottom-bar .dist-btn{flex:1;text-align:center;padding:10px 4px;border-radius:12px;border:2px solid #eee;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:#f8f8f8;color:#333}
+.bottom-bar .dist-btn:active,.bottom-bar .dist-btn.active{transform:scale(.96)}
+.bottom-bar .dist-btn .num{display:inline-block;width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;line-height:22px;text-align:center;margin-right:3px;font-weight:700}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -56,6 +61,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   <div class="legend-item" onclick="focusDistrict('440606')"><span class="legend-dot" style="background:#9B59B6"></span>顺德区</div>
   <div class="legend-item" onclick="focusDistrict('440607')"><span class="legend-dot" style="background:#3498DB"></span>三水区</div>
   <div class="legend-item" onclick="focusDistrict('440608')"><span class="legend-dot" style="background:#F1C40F"></span>高明区</div>
+</div>
+
+
+<div class="bottom-bar" id="bottomBar">
+  <div class="dist-btn" data-code="440604" onclick="focusDistrict('440604')"><span class="num" style="background:#27AE60">1</span>禅城区</div>
+  <div class="dist-btn" data-code="440605" onclick="focusDistrict('440605')"><span class="num" style="background:#E91E8C">2</span>南海区</div>
+  <div class="dist-btn" data-code="440606" onclick="focusDistrict('440606')"><span class="num" style="background:#9B59B6">3</span>顺德区</div>
+  <div class="dist-btn" data-code="440607" onclick="focusDistrict('440607')"><span class="num" style="background:#3498DB">4</span>三水区</div>
+  <div class="dist-btn" data-code="440608" onclick="focusDistrict('440608')"><span class="num" style="background:#F1C40F">5</span>高明区</div>
 </div>
 
 <script>
@@ -167,12 +181,26 @@ L.geoJSON(geoData, {
   }
 }).addTo(map);
 
-// Focus district function (for legend clicks)
+// Focus district function (for legend/bottom bar clicks)
 function focusDistrict(adcode) {
   var layer = districtLayers[adcode];
   if (layer) {
     map.fitBounds(layer.getBounds(), {padding: [60, 60], maxZoom: 13});
     layer.openPopup();
+    // Update bottom bar active state
+    var d = poiData[adcode];
+    var color = d ? d.color : '#999';
+    document.querySelectorAll('.dist-btn').forEach(function(b){
+      b.classList.remove('active');
+      b.style.borderColor = '#eee';
+      b.style.background = '#f8f8f8';
+    });
+    var activeBtn = document.querySelector('.dist-btn[data-code="' + adcode + '"]');
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+      activeBtn.style.borderColor = color;
+      activeBtn.style.background = color + '18';
+    }
   }
 }
 
