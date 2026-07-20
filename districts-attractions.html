@@ -94,7 +94,7 @@ function buildPopupHtml(adcode) {
     h += '<div class="poi-item">';
     h += '<div class="poi-body">';
     if (poi.photos && poi.photos.length > 0) {
-      h += '<img class="poi-thumb" src="' + poi.photos[0] + '" loading="lazy" onclick="window.open('' + poi.photos[0] + '')">';
+      h += '<img class="poi-thumb" src="' + poi.photos[0] + '" loading="lazy" onclick="window.open(\'' + poi.photos[0] + '\')">';
     }
     h += '<div class="poi-info">';
     h += '<div class="poi-name">' + (i+1) + '. ' + poi.name + '</div>';
@@ -165,7 +165,7 @@ L.geoJSON(geoData, {
         var busUrl = 'https://uri.amap.com/navigation?to=' + poi.lng + ',' + poi.lat + ',' + encodeURIComponent(poi.name) + '&mode=bus&coordinate=gaode&callnative=0';
         var popHtml = '<div style="padding:14px 16px;min-width:200px">';
         if (poi.photos && poi.photos.length > 0) {
-          popHtml += '<img class="poi-photo-banner" src="' + poi.photos[0] + '" loading="lazy" onclick="window.open('' + poi.photos[0] + '')">';
+          popHtml += '<img class="poi-photo-banner" src="' + poi.photos[0] + '" loading="lazy" onclick="window.open(\'' + poi.photos[0] + '\')">';
         }
         popHtml += '<div style="font-size:15px;font-weight:700;color:' + color + ';margin-bottom:6px">' + poi.name + '</div>';
         if (poi.addr) popHtml += '<div style="font-size:11px;color:#888;margin-bottom:6px">📍 ' + poi.addr + '</div>';
