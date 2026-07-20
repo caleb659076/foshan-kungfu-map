@@ -1,0 +1,875 @@
+{
+  "440604": {
+    "name": "禅城区",
+    "color": "#27AE60",
+    "pois": [
+      {
+        "name": "佛山市祖庙博物馆",
+        "lng": 113.113124,
+        "lat": 23.029843,
+        "addr": "祖庙街道祖庙路21号(祖庙地铁站出入口步行460米)",
+        "rating": "4.7",
+        "tel": "0757-82221680;0757-82286913",
+        "opentime": "08:30-18:00",
+        "opentime_week": "周一至周日 08:30-18:00",
+        "type": "科教文化服务;博物馆;博物馆",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/6477a20575cd0d1f0000003059802301?type=pic",
+          "https://store.is.autonavi.com/showpic/b99534dbde131f0d0000003109196384?type=pic"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "博物馆",
+          "历史文化"
+        ]
+      },
+      {
+        "name": "梁园",
+        "lng": 113.113271,
+        "lat": 23.038184,
+        "addr": "松风路先锋古道93号",
+        "rating": "4.7",
+        "tel": "0757-82241279;0757-82237051;0757-82258995",
+        "opentime": "09:00-17:30",
+        "opentime_week": "周一至周日 09:00-17:30",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/da2317f2a7b601ed386c093e57e405cc",
+          "http://store.is.autonavi.com/showpic/17f8cfa8bca2aa552e3da74be7862c69"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "园林",
+          "古建筑"
+        ]
+      },
+      {
+        "name": "佛山创意产业园",
+        "lng": 113.097843,
+        "lat": 23.013781,
+        "addr": "弼塘东二街22号自编12号首层",
+        "rating": "4.7",
+        "tel": "0757-82661888",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "商务住宅;产业园区;产业园区",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/bce53c68cf94db312c1da9cb89a6dc3d",
+          "https://aos-comment.amap.com/B02F50660Z/comment/content_media_external_file_1000011465_ss__1770481005189_35328733.jpg"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "创意园",
+          "美食街"
+        ]
+      },
+      {
+        "name": "佛山岭南天地",
+        "lng": 113.116275,
+        "lat": 23.029927,
+        "addr": "祖庙大街2号",
+        "rating": "4.8",
+        "tel": "0757-82552606",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00；具体营业时间以当天开放情况为准。",
+        "type": "购物服务;购物相关场所;购物相关场所",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/90a17b4ebee96824cbe0b1d7ed4d50de",
+          "http://store.is.autonavi.com/showpic/d2eb1d9d59f143121bf464788f8ecdfe"
+        ],
+        "alevel": "",
+        "tags": [
+          "历史街区",
+          "美食购物"
+        ]
+      },
+      {
+        "name": "佛山青年公园",
+        "lng": 113.089746,
+        "lat": 22.983566,
+        "addr": "X507(江滨路)佛山青年公园东南角",
+        "rating": "4.7",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "https://aos-comment.amap.com/B0HRBAW4AM/comment/22352480_E613_40B2_8E4E_061C91830FA6_L0_001_800_53_1773454612036_71152726.jpg",
+          "https://store.is.autonavi.com/showpic/fc35dcc2b1ca69740000002872006309?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "公园",
+          "休闲运动"
+        ]
+      },
+      {
+        "name": "文华公园",
+        "lng": 113.126021,
+        "lat": 23.008948,
+        "addr": "文华中路与彩虹路交叉口对面",
+        "rating": "4.7",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/9a0810fe59c981467564b8588dba0f97",
+          "https://store.is.autonavi.com/showpic/38f3b1139cfa9f5d0000003025158891?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "公园",
+          "城市地标"
+        ]
+      },
+      {
+        "name": "南风古灶",
+        "lng": 113.079185,
+        "lat": 23.005324,
+        "addr": "高庙路5-34号",
+        "rating": "4.6",
+        "tel": "0757-82701118",
+        "opentime": "08:30-21:00",
+        "opentime_week": "周一至周日 08:30-21:00",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/8c5e0802904782cebd454138323b1964",
+          "http://store.is.autonavi.com/showpic/755336d9c3ae4b094ca841240b0e415f"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "陶艺体验",
+          "历史文化"
+        ]
+      },
+      {
+        "name": "亚洲艺术公园",
+        "lng": 113.132503,
+        "lat": 23.002089,
+        "addr": "文华中路13号(亚艺公园地铁站C口步行120米)",
+        "rating": "4.6",
+        "tel": "",
+        "opentime": "05:00-24:00",
+        "opentime_week": "周一至周日 05:00-24:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/24b267ea473bcd53d962ac093729175b",
+          "https://aos-comment.amap.com/B02F507752/comment/content_media_external_file_100002539_1762022072462_78857125.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "公园",
+          "艺术展览"
+        ]
+      },
+      {
+        "name": "岭南酒文化博物馆",
+        "lng": 113.079475,
+        "lat": 23.00036,
+        "addr": "石湾镇街道江滨路1号4座",
+        "rating": "4.2",
+        "tel": "0757-82260130;0757-82267610",
+        "opentime": "09:00-17:00",
+        "opentime_week": "周二至周日 09:00-17:00",
+        "type": "科教文化服务;博物馆;博物馆",
+        "photos": [
+          "https://aos-comment.amap.com/B0FFFF3C19/comment/E7276F51_27CB_43B3_8F49_8AB3ED2944AB_L0_001_1080_144_1766769344557_44462288.jpg",
+          "https://store.is.autonavi.com/showpic/488ba76477b22a0b0000000722976969?type=pic"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "博物馆",
+          "酒文化"
+        ]
+      }
+    ]
+  },
+  "440605": {
+    "name": "南海区",
+    "color": "#E91E8C",
+    "pois": [
+      {
+        "name": "西樵山风景名胜区",
+        "lng": 112.976074,
+        "lat": 22.908475,
+        "addr": "西樵镇环山大道",
+        "rating": "4.7",
+        "tel": "",
+        "opentime": "08:00-17:30 08:30-17:30 08:30-16:30",
+        "opentime_week": "周一至周日 08:00-17:30 最晚进入17:30；景区观光索道和旅游车运营时间:08:30-17:30，入园核销时间:08:30-16:30",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/b4ed61c96b2631daee9ca871b6cc0cd7",
+          "http://store.is.autonavi.com/showpic/bced964dfdd7d1ecf32c43e7de71b39c"
+        ],
+        "alevel": "5A",
+        "tags": [
+          "名山",
+          "祈福登山"
+        ]
+      },
+      {
+        "name": "广东千古情景区",
+        "lng": 112.955299,
+        "lat": 22.942517,
+        "addr": "樵高路86号",
+        "rating": "4.7",
+        "tel": "4008888518",
+        "opentime": "10:00-20:30 10:00-20:50",
+        "opentime_week": "10:00-20:30，6.19-6.20开闭园时间:10:00-20:50",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/695d1ba41c50aba7205281b690be9681",
+          "http://store.is.autonavi.com/showpic/7b8236f244159da9645012c8d5fbd568"
+        ],
+        "alevel": "",
+        "tags": [
+          "演出",
+          "主题乐园"
+        ]
+      },
+      {
+        "name": "千灯湖公园",
+        "lng": 113.146094,
+        "lat": 23.05361,
+        "addr": "灯湖西路28号",
+        "rating": "4.7",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;省级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/406aa1892676dcdf018886664b86da7c",
+          "http://store.is.autonavi.com/showpic/7e0bc020f25e9edd8f75485306a30306"
+        ],
+        "alevel": "",
+        "tags": [
+          "商业综合体",
+          "夜景灯光"
+        ]
+      },
+      {
+        "name": "仙湖度假区",
+        "lng": 112.881594,
+        "lat": 23.054838,
+        "addr": "桂丹西路",
+        "rating": "4.7",
+        "tel": "0757-85411332",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/1d5e92628e897404b6c7e833d9aa0692",
+          "https://store.is.autonavi.com/showpic/eaac9b08f1328e6d0000003063254511?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "湖泊度假",
+          "高尔夫"
+        ]
+      },
+      {
+        "name": "中央电视台南海影视城",
+        "lng": 113.10825,
+        "lat": 23.186927,
+        "addr": "狮山镇松岗影城大道",
+        "rating": "4.6",
+        "tel": "0757-85231007;0757-85232105",
+        "opentime": "08:30-19:30",
+        "opentime_week": "周一至周日 08:30-19:30 最晚进入17:30",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/faeec0f4070a9d689d91239a32adc307",
+          "http://store.is.autonavi.com/showpic/3d91034e59cc2ab112de5a3d3cadbe23"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "影视基地",
+          "拍照打卡"
+        ]
+      },
+      {
+        "name": "梦里水乡景区",
+        "lng": 113.162848,
+        "lat": 23.191288,
+        "addr": "里水镇滨江东路6号",
+        "rating": "4.6",
+        "tel": "0757-85689570;0757-85689787",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/2d0b095e894cac545f2c623adee067e2",
+          "https://aos-comment.amap.com/B0FFJ2UYP8/comment/content_media_external_file_3442_1771682177933_68808657.jpg"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "古镇水乡",
+          "夜游"
+        ]
+      },
+      {
+        "name": "三山森林公园",
+        "lng": 113.227994,
+        "lat": 23.031471,
+        "addr": "",
+        "rating": "4.6",
+        "tel": "",
+        "opentime": "06:00-18:00",
+        "opentime_week": "周一至周日 06:00-18:00",
+        "type": "风景名胜;公园广场;公园|风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "https://aos-comment.amap.com/B02F50YS3U/comment/content_media_external_file_11_1770399938273_71059483.jpg",
+          "https://aos-comment.amap.com/B02F50YS3U/comment/content_media_external_file_3165_1747527326572_98321138.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "森林",
+          "徒步露营"
+        ]
+      },
+      {
+        "name": "半月岛湿地公园",
+        "lng": 113.165975,
+        "lat": 22.994638,
+        "addr": "奇槎区禅桂交界处东平路边",
+        "rating": "4.6",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/4b609ccdf88370430000002964114510?type=pic",
+          "https://aos-comment.amap.com/B0FFHQ5G2T/comment/content_media_external_file_100003145_1769083098309_49044804.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "湿地",
+          "亲子"
+        ]
+      },
+      {
+        "name": "海寿岛",
+        "lng": 112.986676,
+        "lat": 22.810202,
+        "addr": "九江镇江滨四街九江沙雕艺术公园附近",
+        "rating": "",
+        "tel": "",
+        "opentime": "",
+        "opentime_week": "",
+        "type": "风景名胜;风景名胜相关;旅游景点|地名地址信息;自然地名;岛屿",
+        "photos": [
+          "https://aos-comment.amap.com/B02F50WYWN/comment/176647410391_1766474115850_88686448.jpg",
+          "https://aos-comment.amap.com/B02F50WYWN/comment/content_media_external_images_media_1000084106_ss__1738302638767_16946548.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "岛屿",
+          "田园骑行"
+        ]
+      },
+      {
+        "name": "佛罗伦萨小镇",
+        "lng": 113.228301,
+        "lat": 23.005373,
+        "addr": "疏港路28号",
+        "rating": "4.8",
+        "tel": "",
+        "opentime": "",
+        "opentime_week": "周一至周五 10:00-21:00, 周六至周日及节假日 10:00-21:30",
+        "type": "购物服务;商场;购物中心",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/2416fb1f31d3df92aa3d1e9734ac23cd",
+          "http://store.is.autonavi.com/showpic/00f57b9fdb20929ec8ec68490e2a4c25"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "奥特莱斯",
+          "购物"
+        ]
+      }
+    ]
+  },
+  "440606": {
+    "name": "顺德区",
+    "color": "#9B59B6",
+    "pois": [
+      {
+        "name": "长鹿旅游休博园",
+        "lng": 113.289411,
+        "lat": 22.878357,
+        "addr": "伦教三洲建设东路8号",
+        "rating": "4.7",
+        "tel": "0757-27331111;0757-27331642",
+        "opentime": "09:30-19:00",
+        "opentime_week": "周一至周五 09:30-19:00；周六至周日 09:30-20:00",
+        "type": "体育休闲服务;度假疗养场所;度假村|风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/bde0c454d02b1e147940f2d732b2ca99",
+          "http://store.is.autonavi.com/showpic/254cc5737174f364c1eae649e222bf81"
+        ],
+        "alevel": "5A",
+        "tags": [
+          "主题乐园",
+          "动物园",
+          "亲子"
+        ]
+      },
+      {
+        "name": "清晖园",
+        "lng": 113.255086,
+        "lat": 22.835613,
+        "addr": "清晖路23号(大良钟楼地铁站E口步行390米)",
+        "rating": "4.8",
+        "tel": "0757-22226196",
+        "opentime": "09:00-17:00",
+        "opentime_week": "周一至周日 09:00-17:00",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/e73ef3285c75546772411cdf3fddd0ed",
+          "https://store.is.autonavi.com/showpic/114b3bf99ae0fe940000002909898762?type=pic"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "园林",
+          "古建筑"
+        ]
+      },
+      {
+        "name": "顺德欢乐海岸PLUS",
+        "lng": 113.303499,
+        "lat": 22.816365,
+        "addr": "大良街道欢乐大道1号",
+        "rating": "4.8",
+        "tel": "0757-29299001",
+        "opentime": "10:00-22:00",
+        "opentime_week": "周一至周日 10:00-22:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/a21131536ef9323f438a29fbadb377e3",
+          "http://store.is.autonavi.com/showpic/beb8c4558f34565326b63a161bf9f69f"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "商业综合体",
+          "游乐美食"
+        ]
+      },
+      {
+        "name": "顺峰山公园",
+        "lng": 113.286112,
+        "lat": 22.819589,
+        "addr": "南国东路40号",
+        "rating": "4.7",
+        "tel": "0757-22638916",
+        "opentime": "06:00-22:30",
+        "opentime_week": "周一至周日 06:00-22:30 最晚进入22:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/5a3dac088befbcc0afa249a6825f11e6",
+          "https://store.is.autonavi.com/showpic/f7c2c29f22da68900000002704048055?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "公园",
+          "牌坊地标"
+        ]
+      },
+      {
+        "name": "和美术馆",
+        "lng": 113.220137,
+        "lat": 22.932949,
+        "addr": "北滘新城美和路6号",
+        "rating": "4.7",
+        "tel": "0757-26670666",
+        "opentime": "10:00-18:00",
+        "opentime_week": "周一至周日 10:00-18:00",
+        "type": "科教文化服务;美术馆;美术馆",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/31eee546130e7d66726e5e2287d67edb",
+          "http://store.is.autonavi.com/showpic/90dbde3c6f556b98bed267aa317dad55"
+        ],
+        "alevel": "",
+        "tags": [
+          "美术馆",
+          "建筑打卡"
+        ]
+      },
+      {
+        "name": "渔人码头",
+        "lng": 113.271077,
+        "lat": 22.780128,
+        "addr": "东堤路16号",
+        "rating": "4.7",
+        "tel": "0757-28370106",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://aos-cdn-image.amap.com/sns/ugccomment/e16c2109-fe75-4b26-b26d-5222d37f3b31.jpg",
+          "http://aos-cdn-image.amap.com/sns/ugccomment/526619e5-a30a-4f23-9c72-2329b0f3e120.jpg"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "码头",
+          "美食夜景"
+        ]
+      },
+      {
+        "name": "顺德博物馆",
+        "lng": 113.294381,
+        "lat": 22.799222,
+        "addr": "民安路6号",
+        "rating": "4.7",
+        "tel": "0757-29829088",
+        "opentime": "",
+        "opentime_week": "1/1-12/31 周一 全天不开放；1/1-12/31 周二-周日 09:00-17:00开放；元旦节,春节,清明节,劳动节,端午节,中秋节,国庆节 09:00-17:30开放",
+        "type": "科教文化服务;博物馆;博物馆",
+        "photos": [
+          "https://aos-comment.amap.com/B02F508RKA/comment/content_media_external_file_1000031475_ss__1767263773467_22483354.jpg",
+          "https://aos-comment.amap.com/B02F508RKA/comment/content_media_external_file_8_1770399253673_90984639.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "博物馆",
+          "历史文化"
+        ]
+      },
+      {
+        "name": "岭南和园",
+        "lng": 113.212006,
+        "lat": 22.935371,
+        "addr": "人昌路12号",
+        "rating": "4.6",
+        "tel": "0757-22666999",
+        "opentime": "",
+        "opentime_week": "全年 周二-周日 09:00-17:30开放 最晚售票17:00 最晚进入17:00；全年 周一 全天不开放；元旦节,春节,清明节,劳动节,端午节,中秋节,国庆节 09:00-17:30开放",
+        "type": "风景名胜;风景名胜;省级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/3926d0a454f4b317d79cfda6ff2e5de0",
+          "http://aos-cdn-image.amap.com/sns/ugccomment/49a05c62-0dec-4202-a3a3-fb01eea75714.jpg"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "园林",
+          "岭南建筑"
+        ]
+      },
+      {
+        "name": "逢简水乡",
+        "lng": 113.154462,
+        "lat": 22.813153,
+        "addr": "逢简村",
+        "rating": "4.5",
+        "tel": "0757-27798818",
+        "opentime": "10:00-18:00",
+        "opentime_week": "周一至周日 10:00-18:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://aos-cdn-image.amap.com/sns/ugccomment/167ccaaf-6dfb-40be-b303-20f7f62eeb76.jpg",
+          "http://aos-cdn-image.amap.com/sns/ugccomment/a02aac08-c726-4ef5-8874-97b767d4d573.jpg"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "古村水乡",
+          "美食"
+        ]
+      },
+      {
+        "name": "伦教678文化街",
+        "lng": 113.270718,
+        "lat": 22.877411,
+        "addr": "伦教镇文明西路3a号附近",
+        "rating": "4.4",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "购物服务;特色商业街;特色商业街",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/c94fe72a1657b1c9512899713dbb1fc3",
+          "https://aos-comment.amap.com/B0FFGA89KQ/comment/2AD52F04_8684_456C_9D1B_D0DCA8D5E6A9_L0_001_2000_150_1748082138422_83562022.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "文化街",
+          "美食"
+        ]
+      }
+    ]
+  },
+  "440607": {
+    "name": "三水区",
+    "color": "#3498DB",
+    "pois": [
+      {
+        "name": "三水森林公园",
+        "lng": 112.870089,
+        "lat": 23.184445,
+        "addr": "云东海大道13号",
+        "rating": "4.7",
+        "tel": "0757-87820118",
+        "opentime": "08:30-17:30",
+        "opentime_week": "周一至周日 08:30-17:30 最晚进入17:00；游客请在17:30分前离开景区，景区将进行全面消毒清洁工作。",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/1eebcbb795d292a3d144c9b2bd5ccf47",
+          "http://store.is.autonavi.com/showpic/ed2bba061fb8c14aa6c790af937fd94b"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "森林",
+          "大佛祈福"
+        ]
+      },
+      {
+        "name": "河口百年火车站主题公园",
+        "lng": 112.838155,
+        "lat": 23.164519,
+        "addr": "新城街新城街4座",
+        "rating": "4.6",
+        "tel": "",
+        "opentime": "",
+        "opentime_week": "周二至周日 09:00-17:00",
+        "type": "风景名胜;公园广场;公园|交通设施服务;交通服务相关;交通服务相关",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/a826222ddf74adc00000003172622310?type=pic",
+          "https://store.is.autonavi.com/showpic/f2b4ed3077e89f860000002506542336?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "铁路文化",
+          "拍照打卡"
+        ]
+      },
+      {
+        "name": "南丹山森林王国",
+        "lng": 112.878522,
+        "lat": 23.513262,
+        "addr": "南山镇S528省道",
+        "rating": "4.5",
+        "tel": "0757-87219988;0757-87218398",
+        "opentime": "08:30-17:30",
+        "opentime_week": "周一至周日 08:30-17:30 最晚进入16:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/02583550e79db03f43ca8a1e210a7389",
+          "http://store.is.autonavi.com/showpic/1ebb53d4a1525537dcc5c02681af1662"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "森林探险",
+          "玻璃桥"
+        ]
+      },
+      {
+        "name": "云东海国家湿地公园",
+        "lng": 112.899228,
+        "lat": 23.217691,
+        "addr": "G240(碧云路)",
+        "rating": "4.5",
+        "tel": "0757-87766728",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;公园广场;公园",
+        "photos": [
+          "https://aos-comment.amap.com/B0FFL1SC6K/comment/content_media_external_file_100003783_1763172580660_07775861.jpg",
+          "https://aos-comment.amap.com/B0FFL1SC6K/comment/8D82CAE8_324C_4A1E_85D5_3690DFC46B64_L0_001_800_53_1765467236134_35026557.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "湿地",
+          "骑行观鸟"
+        ]
+      },
+      {
+        "name": "佛山文创古镇",
+        "lng": 112.835682,
+        "lat": 23.064523,
+        "addr": "白坭镇府前路23西北方向120米",
+        "rating": "4.1",
+        "tel": "0757-87570927",
+        "opentime": "09:00-17:00",
+        "opentime_week": "周一至周日 09:00-17:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "https://aos-comment.amap.com/B0HAJL5ZQ9/comment/9da900f103b910effeaa05b3cfc6a8ca_2048_2048_80.jpg",
+          "https://aos-comment.amap.com/B0HAJL5ZQ9/comment/b5a5c7f35f772306adb705463a7961b1_2048_2048_80.jpg"
+        ],
+        "alevel": "3A",
+        "tags": [
+          "文创",
+          "古镇"
+        ]
+      },
+      {
+        "name": "长岐古村",
+        "lng": 112.978768,
+        "lat": 23.368122,
+        "addr": "三水区芦苞镇长岐村",
+        "rating": "3.8",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜相关;旅游景点",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/585a4a553d7925570000000968196980?type=pic",
+          "https://store.is.autonavi.com/showpic/79986392722eba600000000968228541?type=pic"
+        ],
+        "alevel": "",
+        "tags": [
+          "古村",
+          "镬耳屋"
+        ]
+      },
+      {
+        "name": "北江大堤",
+        "lng": 112.910092,
+        "lat": 23.369631,
+        "addr": "三水区",
+        "rating": "",
+        "tel": "",
+        "opentime": "",
+        "opentime_week": "",
+        "type": "地名地址信息;交通地名;道路名",
+        "photos": [
+          "https://aos-comment.amap.com/B02F50UV1K/comment/f29ce367b04c38dd7bbb9e42c04f7293_2048_2048_80.jpg",
+          "https://store.is.autonavi.com/showpic/21cb492e988a64e2c03d2a70fa7f5f06"
+        ],
+        "alevel": "",
+        "tags": [
+          "江堤骑行",
+          "自然风光"
+        ]
+      },
+      {
+        "name": "昆都山",
+        "lng": 112.823433,
+        "lat": 23.150816,
+        "addr": "三水区",
+        "rating": "",
+        "tel": "",
+        "opentime": "",
+        "opentime_week": "",
+        "type": "地名地址信息;自然地名;山",
+        "photos": [
+          "https://aos-comment.amap.com/B02F506W4N/comment/9a7b32e348d07acacbc32b567c410834_2048_2048_80.jpg",
+          "https://aos-comment.amap.com/B02F506W4N/comment/content_media_external_images_media_1000038349_ss__1735265949143_05748922.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "登山",
+          "自然风光"
+        ]
+      }
+    ]
+  },
+  "440608": {
+    "name": "高明区",
+    "color": "#F1C40F",
+    "pois": [
+      {
+        "name": "皂幕山旅游风景区",
+        "lng": 112.796006,
+        "lat": 22.737973,
+        "addr": "杨和镇坑丽林场",
+        "rating": "4.6",
+        "tel": "0757-88851551",
+        "opentime": "08:30-16:00",
+        "opentime_week": "周一至周日 08:30-16:00",
+        "type": "风景名胜;风景名胜;省级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/fa81f1a0cec96736424dda8548e61b16",
+          "https://store.is.autonavi.com/showpic/a1486cbb4ac430860000003045396411?type=pic"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "登山",
+          "佛山第一峰"
+        ]
+      },
+      {
+        "name": "盈香心动乐园",
+        "lng": 112.767783,
+        "lat": 22.93638,
+        "addr": "荷城街道西安冼村",
+        "rating": "4.6",
+        "tel": "0757-88863883;0757-88866919;4008002332",
+        "opentime": "",
+        "opentime_week": "9月至12月 周一至周日 08:30-17:30 最晚进入17:00；水上乐园5月1日盛大开园；机动游戏、玻璃桥:9:00-17:15； 生态餐厅:10:00-20:00，仅供参考，请以景区实际为准 07-11至08-31 周一至周日 08:30-20:00 最晚进入19:30；水上乐园5月1日盛大开园；机动游戏、玻璃桥:9:00-17:15； 生态餐厅:10:00-20:00，仅供参考，请以景区实际为准",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/ca06a6c0d07cbeb1b19d6b24182a7f7b",
+          "http://store.is.autonavi.com/showpic/c5052cad3f7ada13ff56d57f8d07a409"
+        ],
+        "alevel": "4A",
+        "tags": [
+          "机动游戏",
+          "动物园",
+          "温泉"
+        ]
+      },
+      {
+        "name": "美的鹭湖森林度假区",
+        "lng": 112.768416,
+        "lat": 22.842876,
+        "addr": "杨和镇高明大道中218号",
+        "rating": "4.6",
+        "tel": "0757-89998919",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00；景区内各景点开放时间不一，详见景点公示。",
+        "type": "风景名胜;风景名胜;国家级景点",
+        "photos": [
+          "http://store.is.autonavi.com/showpic/225fae80297d0553a1e59804efeaf686",
+          "http://store.is.autonavi.com/showpic/b73973dbe7adbb65006eff09b50a2542"
+        ],
+        "alevel": "",
+        "tags": [
+          "主题乐园",
+          "温泉",
+          "滑雪"
+        ]
+      },
+      {
+        "name": "滨荷Park生态文创园",
+        "lng": 112.8904,
+        "lat": 22.905857,
+        "addr": "荷城街道沿江路558号",
+        "rating": "4.6",
+        "tel": "",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "https://aos-comment.amap.com/B0H1VZO7LK/comment/content_media_external_images_media_1000053743_ss__1726708955979_47517793.jpg",
+          "https://aos-comment.amap.com/B0H1VZO7LK/comment/content_media_external_images_media_336_1733559012840_61368823.jpg"
+        ],
+        "alevel": "",
+        "tags": [
+          "文创园",
+          "生态休闲"
+        ]
+      },
+      {
+        "name": "灵龟塔",
+        "lng": 112.903536,
+        "lat": 22.891728,
+        "addr": "荷城沿江路(灵龟园内)",
+        "rating": "4.1",
+        "tel": "0757-88883320",
+        "opentime": "24小时营业",
+        "opentime_week": "周一至周日 00:00-24:00",
+        "type": "风景名胜;风景名胜;风景名胜",
+        "photos": [
+          "https://store.is.autonavi.com/showpic/e8c4cf0168f79e980000002342570003?type=pic",
+          "http://store.is.autonavi.com/showpic/a496d98399fc46138266388d37fdd0cc"
+        ],
+        "alevel": "",
+        "tags": [
+          "古塔",
+          "登高望远"
+        ]
+      }
+    ]
+  }
+}
