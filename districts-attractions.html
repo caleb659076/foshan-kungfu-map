@@ -15,6 +15,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .title-bar{position:fixed;top:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);padding:14px 20px;z-index:1000;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 12px rgba(0,0,0,.08)}
 .title-bar h1{font-size:18px;font-weight:700;color:#1a1a2e}
 .title-bar .sub{font-size:11px;color:#888;margin-top:2px}
+.legend{position:fixed;bottom:120px;right:16px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-radius:14px;padding:14px 18px;z-index:1000;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.legend h3{font-size:13px;font-weight:700;color:#333;margin-bottom:8px}
+.legend-item{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;color:#555;cursor:pointer}
+.legend-item:last-child{margin-bottom:0}
+.legend-dot{width:14px;height:14px;border-radius:4px;flex-shrink:0}
 .leaflet-popup-content-wrapper{border-radius:16px!important;box-shadow:0 8px 30px rgba(0,0,0,.18)!important;padding:0!important;max-height:70vh;overflow:hidden}
 .leaflet-popup-content{margin:0!important;min-width:280px;max-height:65vh;overflow-y:auto}
 .leaflet-popup-tip{box-shadow:none!important}
@@ -48,11 +53,20 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 <div class="title-bar">
   <div>
     <h1>🗺️ 佛山市五区景点地图（公众号：佛山旅游）</h1>
-    <div class="sub">点击底部区域按钮查看各区景点 · 共42个景点</div>
+    <div class="sub">点击区域或图例查看各区景点 · 共42个景点</div>
   </div>
 </div>
 
 <div id="map"></div>
+
+<div class="legend">
+  <h3>行政区划</h3>
+  <div class="legend-item" onclick="focusDistrict('440604')"><span class="legend-dot" style="background:#27AE60"></span>禅城区</div>
+  <div class="legend-item" onclick="focusDistrict('440605')"><span class="legend-dot" style="background:#E91E8C"></span>南海区</div>
+  <div class="legend-item" onclick="focusDistrict('440606')"><span class="legend-dot" style="background:#9B59B6"></span>顺德区</div>
+  <div class="legend-item" onclick="focusDistrict('440607')"><span class="legend-dot" style="background:#3498DB"></span>三水区</div>
+  <div class="legend-item" onclick="focusDistrict('440608')"><span class="legend-dot" style="background:#F1C40F"></span>高明区</div>
+</div>
 
 <div class="bottom-bar" id="bottomBar">
   <div class="dist-btn" data-code="440604" onclick="focusDistrict('440604')"><span class="num" style="background:#27AE60">1</span>禅城区</div>
@@ -128,11 +142,11 @@ L.geoJSON(geoData, {
       iconAnchor: [40, 15]
     });
     var labelMarker = L.marker(center, {icon: labelIcon, zIndexOffset: 200}).addTo(map);
-    labelMarker.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true});
+    labelMarker.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
 
     layer.on('mouseover', function(e) { e.target.setStyle({fillOpacity: 0.6, weight: 3.5}); });
     layer.on('mouseout', function(e) { e.target.setStyle({fillOpacity: 0.32, weight: 2.5}); });
-    layer.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true});
+    layer.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
 
     if (d) {
       poiMarkers[adcode] = [];
@@ -161,7 +175,7 @@ L.geoJSON(geoData, {
           popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#9b59b6;text-decoration:none" href="tel:' + telNum + '">📞 电话</a>';
         }
         popHtml += '</div></div>';
-        var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(popHtml, {maxWidth: 260, closeButton: true});
+        var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(popHtml, {maxWidth: 260, closeButton: true, autoPanPadding: [70, 70]});
         poiMarkers[adcode].push(m);
       });
     }
