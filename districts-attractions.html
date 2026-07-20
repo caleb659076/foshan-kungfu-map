@@ -135,10 +135,12 @@ L.geoJSON(geoData, {
     });
     var labelMarker = L.marker(center, {icon: labelIcon, zIndexOffset: 200}).addTo(map);
     labelMarker.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
+    (function(code) { labelMarker.on('popupopen', function() { highlightBottomBar(code); }); })(adcode);
 
     layer.on('mouseover', function(e) { e.target.setStyle({fillOpacity: 0.6, weight: 3.5}); });
     layer.on('mouseout', function(e) { e.target.setStyle({fillOpacity: 0.32, weight: 2.5}); });
     layer.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
+    (function(code) { layer.on('popupopen', function() { highlightBottomBar(code); }); })(adcode);
 
     if (d) {
       poiMarkers[adcode] = [];
@@ -171,30 +173,35 @@ L.geoJSON(geoData, {
         }
         popHtml += '</div></div>';
         var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(popHtml, {maxWidth: 260, closeButton: true, autoPanPadding: [70, 70]});
+        (function(code) { m.on('popupopen', function() { highlightBottomBar(code); }); })(adcode);
         poiMarkers[adcode].push(m);
       });
     }
   }
 }).addTo(map);
 
+function highlightBottomBar(adcode) {
+  var d = poiData[adcode];
+  var color = d ? d.color : '#999';
+  document.querySelectorAll('.dist-btn').forEach(function(b){
+    b.classList.remove('active');
+    b.style.borderColor = '#eee';
+    b.style.background = '#f8f8f8';
+  });
+  var activeBtn = document.querySelector('.dist-btn[data-code="' + adcode + '"]');
+  if (activeBtn) {
+    activeBtn.classList.add('active');
+    activeBtn.style.borderColor = color;
+    activeBtn.style.background = color + '18';
+  }
+}
+
 function focusDistrict(adcode) {
   var layer = districtLayers[adcode];
   if (layer) {
     map.fitBounds(layer.getBounds(), {padding: [60, 60], maxZoom: 13});
     layer.openPopup();
-    var d = poiData[adcode];
-    var color = d ? d.color : '#999';
-    document.querySelectorAll('.dist-btn').forEach(function(b){
-      b.classList.remove('active');
-      b.style.borderColor = '#eee';
-      b.style.background = '#f8f8f8';
-    });
-    var activeBtn = document.querySelector('.dist-btn[data-code="' + adcode + '"]');
-    if (activeBtn) {
-      activeBtn.classList.add('active');
-      activeBtn.style.borderColor = color;
-      activeBtn.style.background = color + '18';
-    }
+    highlightBottomBar(adcode);
   }
 }
 
