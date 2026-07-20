@@ -28,6 +28,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .poi-item .poi-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:#f0f2f5;color:#666}
 .poi-item .poi-tag.rating{background:#fff3e0;color:#e65100}
 .poi-item .poi-tag.time{background:#e8f5e9;color:#2e7d32}
+.poi-item .poi-tag.type{background:#e3f2fd;color:#1565c0}
 .poi-item .poi-addr{font-size:11px;color:#999;margin-bottom:8px}
 .poi-item .poi-btns{display:flex;gap:6px;flex-wrap:wrap}
 .poi-item .poi-btn{flex:1;min-width:70px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;text-decoration:none;color:#fff;display:block}
@@ -89,7 +90,17 @@ function buildPopupHtml(adcode) {
     h += '<div class="poi-item">';
     h += '<div class="poi-name">' + (i+1) + '. ' + poi.name + '</div>';
     h += '<div class="poi-meta">';
-    if (poi.rating) h += '<span class="poi-tag rating">⭐ ' + poi.rating + '</span>';
+    if (poi.rating) {
+      var r = Math.round(parseFloat(poi.rating));
+      var stars = '★'.repeat(r) + '☆'.repeat(5 - r);
+      h += '<span class="poi-tag rating">' + stars + '</span>';
+    }
+    if (poi.type) {
+      var segs = poi.type.split('|')[0].split(';');
+      var spec = segs[segs.length - 1];
+      var map = {'博物馆':'🏛 博物馆','公园':'🌳 公园','国家级景点':'🏆 国家级','省级景点':'🏅 省级','购物中心':'🛍 购物','美术馆':'🎨 美术馆','度假村':'🏖 度假村','岛屿':'🏝 岛屿','旅游景点':'📍 景点','特色商业街':'🛍 商街','产业园区':'🏭 创意园','山':'⛰ 山峰','风景名胜':'🏞 景区'};
+      if (map[spec]) h += '<span class="poi-tag type">' + map[spec] + '</span>';
+    }
     if (poi.opentime) h += '<span class="poi-tag time">🕒 ' + poi.opentime + '</span>';
     h += '</div>';
     if (poi.addr) h += '<div class="poi-addr">📍 ' + poi.addr + '</div>';
@@ -152,7 +163,17 @@ L.geoJSON(geoData, {
         popHtml += '<div style="font-size:15px;font-weight:700;color:' + color + ';margin-bottom:6px">' + poi.name + '</div>';
         if (poi.addr) popHtml += '<div style="font-size:11px;color:#888;margin-bottom:6px">📍 ' + poi.addr + '</div>';
         var tags = [];
-        if (poi.rating) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;margin-right:4px">⭐ ' + poi.rating + '</span>');
+        if (poi.rating) {
+          var r = Math.round(parseFloat(poi.rating));
+          var stars = '★'.repeat(r) + '☆'.repeat(5 - r);
+          tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;margin-right:4px">' + stars + '</span>');
+        }
+        if (poi.type) {
+          var segs = poi.type.split('|')[0].split(';');
+          var spec = segs[segs.length - 1];
+          var tmap = {'博物馆':'🏛 博物馆','公园':'🌳 公园','国家级景点':'🏆 国家级','省级景点':'🏅 省级','购物中心':'🛍 购物','美术馆':'🎨 美术馆','度假村':'🏖 度假村','岛屿':'🏝 岛屿','旅游景点':'📍 景点','特色商业街':'🛍 商街','产业园区':'🏭 创意园','山':'⛰ 山峰','风景名胜':'🏞 景区'};
+          if (tmap[spec]) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + tmap[spec] + '</span>');
+        }
         if (poi.opentime) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + poi.opentime + '</span>');
         if (tags.length) popHtml += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
         popHtml += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
