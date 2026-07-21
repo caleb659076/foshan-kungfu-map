@@ -271,9 +271,12 @@ map.on('popupopen', function(e) {
     var pc = document.querySelector('.leaflet-popup .leaflet-popup-content');
     var sh = pc ? pc.querySelector('.scroll-hint') : null;
     if (pc && sh) {
+      var dn = '';
+      var h3 = pc.querySelector('.dist-popup h3');
+      if (h3) dn = h3.textContent;
       pc.addEventListener('scroll', function() {
         if (pc.scrollHeight - pc.scrollTop - pc.clientHeight < 10) {
-          sh.textContent = '— 已显示全部景点 —';
+          sh.textContent = '— 已显示' + dn + '全部景点 —';
         } else {
           sh.textContent = '↑ 向上滑动查看全部景点';
         }
