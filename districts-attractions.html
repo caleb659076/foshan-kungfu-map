@@ -46,9 +46,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .bottom-bar .dist-btn{flex:1;text-align:center;padding:10px 4px;border-radius:12px;border:2px solid #eee;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:#f8f8f8;color:#333}
 .bottom-bar .dist-btn:active,.bottom-bar .dist-btn.active{transform:scale(.96)}
 .bottom-bar .dist-btn .num{display:inline-block;width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;line-height:22px;text-align:center;margin-right:3px;font-weight:700}
-.welcome-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.35);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;animation:welcomeFadeIn .4s ease}
+.welcome-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.35);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:pointer;animation:welcomeFadeIn .4s ease forwards}
 @keyframes welcomeFadeIn{from{opacity:0}to{opacity:1}}
-.welcome-card{background:#fff;border-radius:20px;padding:28px 24px 20px;max-width:300px;width:85%;box-shadow:0 12px 40px rgba(0,0,0,.25);text-align:center;animation:welcomeSlideUp .4s ease}
+.welcome-card{background:#fff;border-radius:20px;padding:28px 24px 20px;max-width:300px;width:85%;box-shadow:0 12px 40px rgba(0,0,0,.25);text-align:center;animation:welcomeSlideUp .4s ease forwards}
 @keyframes welcomeSlideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 .welcome-card .wc-emoji{font-size:40px;margin-bottom:6px}
 .welcome-card .wc-title{font-size:17px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
