@@ -79,8 +79,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   <div class="dist-btn" data-code="440608" onclick="focusDistrict('440608')"><span class="num" style="background:#F1C40F">5</span>高明区</div>
 </div>
 
-<div class="welcome-overlay" id="welcomeOverlay" onclick="(function(e){e.stopPropagation();var o=document.getElementById('welcomeOverlay');if(o){o.style.transition='opacity .5s';o.style.opacity='0';setTimeout(function(){if(o.parentNode)o.parentNode.removeChild(o)},500)}})(event)">
-  <div class="welcome-card" onclick="event.stopPropagation()">
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card">
     <div class="wc-emoji">👋</div>
     <div class="wc-title">欢迎来到佛山旅游地图</div>
     <div class="wc-sub">禅城·南海·顺德·三水·高明 · 42个景点</div>
@@ -254,6 +254,16 @@ map.fitBounds(L.geoJSON(geoData).getBounds(), {padding: [50, 50]});
 function dismissWelcome() {
   var o = document.getElementById('welcomeOverlay');
   if (o) { o.style.transition = 'opacity .5s'; o.style.opacity = '0'; setTimeout(function(){ if(o.parentNode) o.parentNode.removeChild(o); }, 500); }
+}
+var _wo = document.getElementById('welcomeOverlay');
+if (_wo) {
+  _wo.addEventListener('click', function(e) { e.stopPropagation(); dismissWelcome(); });
+  var _today = new Date();
+  var _dk = 'fsm_welcome_' + _today.getFullYear() + ('0'+(_today.getMonth()+1)).slice(-2) + ('0'+_today.getDate()).slice(-2);
+  try {
+    if (localStorage.getItem(_dk)) { _wo.style.display = 'none'; if(_wo.parentNode) _wo.parentNode.removeChild(_wo); }
+    else { localStorage.setItem(_dk, '1'); }
+  } catch(e) {}
 }
 map.on('click', dismissWelcome);
 </script>
