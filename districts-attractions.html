@@ -147,7 +147,7 @@ function buildPopupHtml(adcode) {
     }
     h += '</div></div></div></div>';
   });
-  h += '<div class="scroll-hint">↑ 向上滑动查看全部景点</div>';
+  h += '<div class="scroll-hint" id="sh_' + adcode + '">↑ 向上滑动查看全部景点</div>';
   h += '</div>';
   return h;
 }
@@ -266,5 +266,20 @@ if (_wo) {
   } catch(e) {}
 }
 map.on('click', dismissWelcome);
+map.on('popupopen', function(e) {
+  setTimeout(function() {
+    var pc = document.querySelector('.leaflet-popup .leaflet-popup-content');
+    var sh = pc ? pc.querySelector('.scroll-hint') : null;
+    if (pc && sh) {
+      pc.addEventListener('scroll', function() {
+        if (pc.scrollHeight - pc.scrollTop - pc.clientHeight < 10) {
+          sh.textContent = '— 已显示全部景点 —';
+        } else {
+          sh.textContent = '↑ 向上滑动查看全部景点';
+        }
+      });
+    }
+  }, 100);
+});
 </script>
 </body></html>
