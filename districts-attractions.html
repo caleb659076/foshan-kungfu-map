@@ -198,7 +198,7 @@ function buildPopupHtml(adcode) {
   var codes = Object.keys(poiData);
   codes.forEach(function(c) {
     var dd = poiData[c];
-    h += '<a onclick="event.stopPropagation();focusDistrict('' + c + '')" style="border:1px solid ' + dd.color + '40;color:' + dd.color + '">' + dd.name.replace('区','') + '</a>';
+    h += '<a onclick="event.stopPropagation();focusDistrict(\'' + c + '\')" style="border:1px solid ' + dd.color + '40;color:' + dd.color + '">' + dd.name.replace('区','') + '</a>';
   });
   h += '</div>';
   h += '</div>';
