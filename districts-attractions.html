@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>佛山市五区景点地图（公众号：佛山旅游）</title>
+<title>佛山市五区景点地图</title>
 <meta property="og:title" content="佛山市五区景点地图">
 <meta property="og:description" content="佛山禅城、南海、顺德、三水、高明五区44个热门景点 interactive 地图，含导航、电话、营业时间等信息（公众号：佛山旅游）">
 <meta property="og:image" content="https://caleb659076.github.io/foshan-kungfu-map/og-cover.png">
@@ -86,7 +86,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .detail-panel td{color:#333}
 .detail-panel .free-tag{color:#2e7d32;font-weight:600}
 .detail-panel .disc-tag{color:#e65100;font-weight:600}
-.contact-fab{position:fixed;right:14px;bottom:68px;z-index:1100;background:#07c160;color:#fff;border:none;border-radius:24px;padding:8px 14px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;box-shadow:0 2px 12px rgba(7,193,96,.35);cursor:pointer;white-space:nowrap}
+.contact-fab{position:fixed;right:0;bottom:80px;z-index:1100;background:#07c160;color:#fff;border:none;border-radius:24px 0 0 24px;padding:8px 16px 8px 12px;font-size:12px;font-weight:600;display:flex;align-items:center;gap:5px;box-shadow:-2px 2px 12px rgba(7,193,96,.35);cursor:pointer;white-space:nowrap}
 .contact-fab:active{transform:scale(.95)}
 .contact-fab .fab-icon{font-size:15px;line-height:1}
 .contact-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3600;display:none;align-items:center;justify-content:center}
@@ -129,7 +129,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
   </div>
 </div>
 
-<button class="contact-fab" onclick="openContact()"><span class="fab-icon">📞</span>联系我们</button>
+<button class="contact-fab" onclick="openContact()"><span class="fab-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm3.238 4.616c-3.238 0-6.153 2.143-6.153 5.406 0 3.263 2.915 5.406 6.153 5.406.782 0 1.564-.145 2.301-.38a.68.68 0 0 1 .564.077l1.497.876a.258.258 0 0 0 .131.043c.126 0 .228-.104.228-.232 0-.057-.023-.113-.038-.167l-.306-1.163a.465.465 0 0 1 .167-.523C21.063 19.05 22 17.423 22 15.607c0-3.263-2.591-5.406-5.813-5.406h-1.351zm-1.902 2.72c.504 0 .913.416.913.928s-.409.928-.913.928a.92.92 0 0 1-.914-.928c0-.512.41-.928.914-.928zm3.804 0c.504 0 .914.416.914.928s-.41.928-.914.928a.92.92 0 0 1-.913-.928c0-.512.409-.928.913-.928z"/></svg></span>联系我们</button>
 
 <div class="contact-overlay" id="contactOverlay" onclick="closeContact()">
   <div class="contact-card" onclick="event.stopPropagation()">
