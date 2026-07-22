@@ -269,7 +269,7 @@ L.geoJSON(geoData, {
             tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px;margin-right:4px">' + _st2 + '🕒 ' + p.opentime + '</span>');
             tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + p.name.replace(/'/g, "&apos;") + '\',\'' + (p.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (p.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (p.addr||'').replace(/'/g, "&apos;") + '\',\'' + (p.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>');
           }
-          if (tags.length) h += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
+          if (tags.length) h += '<div style="margin-top:6px;margin-bottom:8px">' + tags.join('') + '</div>';
           h += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
           h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#3498db;text-decoration:none" href="' + navUrl + '">🚗 驾车</a>';
           h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#27ae60;text-decoration:none" href="' + busUrl + '">🚌 公交</a>';
