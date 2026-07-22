@@ -60,6 +60,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .welcome-card .wc-icon{font-size:22px;width:32px;text-align:center;flex-shrink:0}
 .welcome-card .wc-text{font-size:13px;color:#333;font-weight:500;line-height:1.4}
 .welcome-card .wc-hint{font-size:11px;color:#bbb;margin-top:12px;letter-spacing:.5px}
+.poi-status{display:inline-block;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:600;margin-left:6px}
+.poi-status.open{background:#e8f5e9;color:#2e7d32}
+.poi-status.closed{background:#ffebee;color:#c62828}
+.poi-detail-link{font-size:11px;color:#1976d2;cursor:pointer;margin-left:6px;text-decoration:none}
+.poi-detail-link:active{opacity:.6}
+.poi-distance{font-size:11px;color:#888;margin-bottom:4px}
+.poi-review{font-size:11px;color:#e65100;margin-bottom:6px;line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.poi-btn-tel-sm{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:42px;min-width:42px;flex:none;padding:6px 0;border-radius:10px;font-size:10px;color:#fff;background:#9b59b6;text-decoration:none;gap:2px}
+.poi-btn-tel-sm:active{opacity:.7}
+.poi-btn-tel-sm .tel-icon{font-size:16px;line-height:1}
+.poi-btn-tel-sm .tel-text{font-size:10px;line-height:1}
+.detail-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3500;display:none;align-items:flex-end;justify-content:center}
+.detail-overlay.active{display:flex}
+.detail-panel{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:420px;max-height:70vh;overflow-y:auto;padding:24px 20px 32px;animation:slideUp .3s ease}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.detail-panel h4{font-size:16px;font-weight:700;margin-bottom:12px;color:#333}
+.detail-panel .detail-close{position:absolute;top:16px;right:20px;font-size:20px;cursor:pointer;color:#999;background:none;border:none}
+.detail-panel table{width:100%;border-collapse:collapse;font-size:13px}
+.detail-panel th,.detail-panel td{padding:10px 8px;text-align:left;border-bottom:1px solid #f0f0f0}
+.detail-panel th{color:#888;font-weight:500;width:30%}
+.detail-panel td{color:#333}
+.detail-panel .free-tag{color:#2e7d32;font-weight:600}
+.detail-panel .disc-tag{color:#e65100;font-weight:600}
+.scroll-hint-nav{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;padding:4px 0 2px}
+.scroll-hint-nav a{font-size:11px;padding:4px 10px;border-radius:12px;background:#f0f2f5;color:#555;text-decoration:none;font-weight:500}
+.scroll-hint-nav a:active{background:#e0e0e0}
 </style>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -83,6 +109,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 </div>
 
 <div class="photo-lightbox" id="photoLightbox" onclick="closeLightbox()"><img id="lightboxImg" src="" alt=""></div>
+
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail()">
+  <div class="detail-panel" onclick="event.stopPropagation()">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <h4 id="detailTitle">实用信息</h4>
+    <div id="detailContent"></div>
+  </div>
+</div>
 
 <div class="welcome-overlay" id="welcomeOverlay">
   <div class="welcome-card">
@@ -134,13 +168,20 @@ function buildPopupHtml(adcode) {
       h += '<img class="poi-thumb" src="' + poi.photos[0] + '" loading="lazy">';
     }
     h += '<div class="poi-info">';
-    h += '<div class="poi-name">' + (i+1) + '. ' + poi.name + '</div>';
+    h += '<div class="poi-name">' + (i+1) + '. ' + poi.name + statusHtml(poi) + '</div>';
+    var dist = getDistance(poi.lat, poi.lng);
+    if (dist) h += '<div class="poi-distance">📍 ' + dist + '</div>';
+    var rev = briefReview(poi);
+    if (rev) h += '<div class="poi-review">“' + rev + '”</div>';
     h += '<div class="poi-meta">';
     if (poi.alevel) h += '<span class="poi-tag alevel">' + poi.alevel + '</span>';
     if (poi.tags) {
       poi.tags.forEach(function(t) { h += '<span class="poi-tag tag">' + t + '</span>'; });
     }
-    if (poi.opentime) h += '<span class="poi-tag time">🕒 ' + poi.opentime + '</span>';
+    if (poi.opentime) {
+      h += '<span class="poi-tag time">🕒 ' + poi.opentime + '</span>';
+      h += '<a class="poi-detail-link" onclick="event.stopPropagation();showDetail('' + poi.name.replace(/'/g, "\\'") + '','' + (poi.opentime||'').replace(/'/g, "\\'") + '','' + (poi.opentime_week||'').replace(/'/g, "\\'") + '','' + (poi.addr||'').replace(/'/g, "\\'") + '','' + (poi.tel||'').replace(/'/g, "\\'") + '')">详情 &gt;</a>';
+    }
     h += '</div>';
     if (poi.addr) h += '<div class="poi-addr">📍 ' + poi.addr + '</div>';
     h += '<div class="poi-btns">';
@@ -148,11 +189,18 @@ function buildPopupHtml(adcode) {
     h += '<a class="poi-btn btn-bus" href="' + busUrl + '">🚌 公交导航</a>';
     if (poi.tel) {
       var telNum = poi.tel.split(';')[0];
-      h += '<a class="poi-btn btn-tel" href="tel:' + telNum + '">📞 拨打电话</a>';
+      h += '<a class="poi-btn-tel-sm" href="tel:' + telNum + '"><span class="tel-icon">📞</span><span class="tel-text">电话</span></a>';
     }
     h += '</div></div></div></div>';
   });
-  h += '<div class="scroll-hint" id="sh_' + adcode + '">↑ 向上滑动查看全部景点</div>';
+  h += '<div class="scroll-hint" id="sh_' + adcode + '">↑ 向上滑动查看' + d.name + '全部景点</div>';
+  h += '<div class="scroll-hint-nav">';
+  var codes = Object.keys(poiData);
+  codes.forEach(function(c) {
+    var dd = poiData[c];
+    h += '<a onclick="event.stopPropagation();focusDistrict('' + c + '')" style="border:1px solid ' + dd.color + '40;color:' + dd.color + '">' + dd.name.replace('区','') + '</a>';
+  });
+  h += '</div>';
   h += '</div>';
   return h;
 }
@@ -204,21 +252,24 @@ L.geoJSON(geoData, {
         if (poi.photos && poi.photos.length > 0) {
           popHtml += '<img class="poi-photo-banner" src="' + poi.photos[0] + '" loading="lazy">';
         }
-        popHtml += '<div style="font-size:15px;font-weight:700;color:' + color + ';margin-bottom:6px">' + poi.name + '</div>';
+        popHtml += '<div style="font-size:15px;font-weight:700;color:' + color + ';margin-bottom:6px">' + poi.name + statusHtml(poi) + '</div>';
         if (poi.addr) popHtml += '<div style="font-size:11px;color:#888;margin-bottom:6px">📍 ' + poi.addr + '</div>';
         var tags = [];
         if (poi.alevel) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;margin-right:4px">' + poi.alevel + '</span>');
         if (poi.tags) {
           poi.tags.forEach(function(t) { tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + t + '</span>'); });
         }
-        if (poi.opentime) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + poi.opentime + '</span>');
+        if (poi.opentime) {
+          tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + poi.opentime + '</span>');
+          tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail('' + poi.name.replace(/'/g, "\\'") + '','' + (poi.opentime||'').replace(/'/g, "\\'") + '','' + (poi.opentime_week||'').replace(/'/g, "\\'") + '','' + (poi.addr||'').replace(/'/g, "\\'") + '','' + (poi.tel||'').replace(/'/g, "\\'") + '')">详情 &gt;</a>');
+        }
         if (tags.length) popHtml += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
-        popHtml += '<div style="display:flex;gap:6px;flex-wrap:wrap">';
+        popHtml += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
         popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#3498db;text-decoration:none" href="' + navUrl + '">🚗 驾车</a>';
         popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#27ae60;text-decoration:none" href="' + busUrl + '">🚌 公交</a>';
         if (poi.tel) {
           var telNum = poi.tel.split(';')[0];
-          popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#9b59b6;text-decoration:none" href="tel:' + telNum + '">📞 电话</a>';
+          popHtml += '<a class="poi-btn-tel-sm" href="tel:' + telNum + '"><span class="tel-icon">📞</span><span class="tel-text">电话</span></a>';
         }
         popHtml += '</div></div>';
         var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(popHtml, {maxWidth: 260, closeButton: true, autoPanPadding: [70, 70]});
@@ -281,6 +332,91 @@ function closeLightbox() {
   var lb = document.getElementById('photoLightbox');
   if (lb) { lb.classList.remove('active'); document.getElementById('lightboxImg').src = ''; }
 }
+
+// --- Open/Closed status ---
+function isOpen(poi) {
+  if (!poi.opentime) return null;
+  if (poi.opentime.indexOf('24小时') >= 0) return true;
+  var now = new Date();
+  var hm = now.getHours() * 60 + now.getMinutes();
+  var m = poi.opentime.match(/(\d{1,2}):(\d{2})\s*[-–]\s*(\d{1,2}):(\d{2})/);
+  if (!m) return null;
+  var open = parseInt(m[1]) * 60 + parseInt(m[2]);
+  var close = parseInt(m[3]) * 60 + parseInt(m[4]);
+  if (close <= open) return hm >= open || hm < close;
+  return hm >= open && hm < close;
+}
+function statusHtml(poi) {
+  var s = isOpen(poi);
+  if (s === null) return '';
+  if (s) return '<span class="poi-status open">开园中</span>';
+  return '<span class="poi-status closed">已闭园</span>';
+}
+
+// --- Detail panel ---
+function showDetail(name, opentime, opentimeWeek, addr, tel) {
+  var ov = document.getElementById('detailOverlay');
+  var title = document.getElementById('detailTitle');
+  var content = document.getElementById('detailContent');
+  if (!ov || !title || !content) return;
+  title.textContent = name + ' · 实用信息';
+  var h = '<table>';
+  h += '<tr><th>开放时间</th><td>' + (opentime || '暂无信息') + '</td></tr>';
+  if (opentimeWeek) h += '<tr><th>详细时间</th><td>' + opentimeWeek + '</td></tr>';
+  if (addr) h += '<tr><th>地址</th><td>' + addr + '</td></tr>';
+  if (tel) h += '<tr><th>电话</th><td>' + tel.replace(/;/g, '<br>') + '</td></tr>';
+  h += '</table>';
+  h += '<h4 style="margin-top:18px">优待政策</h4>';
+  h += '<table>';
+  h += '<tr><th>人群</th><th>条件</th><th>政策</th></tr>';
+  h += '<tr><td>儿童</td><td>身高1米以下或年龄3周岁以下</td><td class="free-tag">免费</td></tr>';
+  h += '<tr><td>儿童</td><td>身高1-1.49米或3-11周岁</td><td class="disc-tag">优惠</td></tr>';
+  h += '<tr><td>老人</td><td>60-69周岁（需证件）</td><td class="disc-tag">优惠</td></tr>';
+  h += '<tr><td>老人</td><td>70周岁以上（需证件）</td><td class="free-tag">免费</td></tr>';
+  h += '<tr><td>残疑人士</td><td>需证件核验</td><td class="free-tag">免费</td></tr>';
+  h += '<tr><td>现役/退役军人</td><td>需证件核验</td><td class="free-tag">免费</td></tr>';
+  h += '</table>';
+  h += '<p style="font-size:11px;color:#bbb;margin-top:12px">*以上信息仅供参考，具体以实际为准</p>';
+  content.innerHTML = h;
+  ov.classList.add('active');
+}
+function closeDetail() {
+  var ov = document.getElementById('detailOverlay');
+  if (ov) ov.classList.remove('active');
+}
+
+// --- User location & distance ---
+var _userLat = null, _userLng = null;
+function getUserLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(pos) {
+      _userLat = pos.coords.latitude;
+      _userLng = pos.coords.longitude;
+    }, function() {}, {timeout: 5000});
+  }
+}
+getUserLocation();
+function getDistance(lat, lng) {
+  if (_userLat === null) return '';
+  var R = 6371;
+  var dLat = (lat - _userLat) * Math.PI / 180;
+  var dLng = (lng - _userLng) * Math.PI / 180;
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(_userLat * Math.PI/180) * Math.cos(lat * Math.PI/180) * Math.sin(dLng/2) * Math.sin(dLng/2);
+  var d = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  if (d < 1) return (d * 1000).toFixed(0) + 'm';
+  return d.toFixed(1) + 'km';
+}
+
+// --- Brief review from rating ---
+function briefReview(poi) {
+  if (!poi.rating) return '';
+  var r = parseFloat(poi.rating);
+  if (r >= 4.8) return '超棒体验，值得一去';
+  if (r >= 4.5) return '口碑很好，推荐游览';
+  if (r >= 4.0) return '评价不错，可以一看';
+  return '可以参观游览';
+}
+
 document.addEventListener('click', function(e) {
   var t = e.target;
   if (t.classList && (t.classList.contains('poi-thumb') || t.classList.contains('poi-photo-banner'))) {
@@ -298,9 +434,9 @@ map.on('popupopen', function(e) {
       if (h3) dn = h3.textContent;
       pc.addEventListener('scroll', function() {
         if (pc.scrollHeight - pc.scrollTop - pc.clientHeight < 10) {
-          sh.textContent = '— 已显示' + dn + '全部景点 —';
+          sh.innerHTML = '— 已显示' + dn + '全部景点 —';
         } else {
-          sh.textContent = '↑ 向上滑动查看全部景点';
+          sh.innerHTML = '↑ 向上滑动查看' + dn + '全部景点';
         }
       });
     }
