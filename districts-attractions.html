@@ -285,14 +285,14 @@ L.geoJSON(geoData, {
           if (p.tags) {
             p.tags.forEach(function(t) { tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + t + '</span>'); });
           }
-          if (tags.length) h += '<div style="margin-top:8px;margin-bottom:0">' + tags.join('') + '</div>';
+          if (tags.length) h += '<div style="margin-top:14px;margin-bottom:0">' + tags.join('') + '</div>';
           if (p.opentime) {
             var _s2 = isOpen(p);
             var _st2 = _s2 === null ? '' : (_s2 ? '<span style="color:#2e7d32;font-weight:600">开园中</span> ' : '<span style="color:#c62828;font-weight:600">已闭园</span> ');
             h += '<div style="margin-top:10px;margin-bottom:8px"><span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px;margin-right:4px">' + _st2 + '🕒 ' + p.opentime + '</span>';
             h += '<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + p.name.replace(/'/g, "&apos;") + '\',\'' + (p.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (p.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (p.addr||'').replace(/'/g, "&apos;") + '\',\'' + (p.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a></div>';
           }
-          h += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
+          h += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:10px">';
           h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#3498db;text-decoration:none" href="' + navUrl + '">🚗 驾车</a>';
           h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#27ae60;text-decoration:none" href="' + busUrl + '">🚌 公交</a>';
           if (p.tel) {
