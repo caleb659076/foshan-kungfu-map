@@ -222,12 +222,12 @@ L.geoJSON(geoData, {
     });
     var labelMarker = L.marker(center, {icon: labelIcon, zIndexOffset: 200}).addTo(map);
     labelMarker.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
-    (function(code) { labelMarker.on('popupopen', function() { highlightBottomBar(code); setTimeout(function(){ var pc = document.querySelector('.leaflet-popup .leaflet-popup-content'); if(pc) refreshPopup(pc, code); }, 50); }); })(adcode);
+    (function(code) { labelMarker.on('popupopen', function(e) { highlightBottomBar(code); if (_userLat !== null) { e.popup.setContent(buildPopupHtml(code)); } }); })(adcode);
 
     layer.on('mouseover', function(e) { e.target.setStyle({fillOpacity: 0.6, weight: 3.5}); });
     layer.on('mouseout', function(e) { e.target.setStyle({fillOpacity: 0.32, weight: 2.5}); });
     layer.bindPopup(buildPopupHtml(adcode), {maxWidth: 320, maxHeight: 400, closeButton: true, autoPanPadding: [70, 70]});
-    (function(code) { layer.on('popupopen', function() { highlightBottomBar(code); setTimeout(function(){ var pc = document.querySelector('.leaflet-popup .leaflet-popup-content'); if(pc) refreshPopup(pc, code); }, 50); }); })(adcode);
+    (function(code) { layer.on('popupopen', function(e) { highlightBottomBar(code); if (_userLat !== null) { e.popup.setContent(buildPopupHtml(code)); } }); })(adcode);
 
     if (d) {
       poiMarkers[adcode] = [];
@@ -239,61 +239,46 @@ L.geoJSON(geoData, {
           iconAnchor: [13, 13],
           popupAnchor: [0, -15]
         });
-        var navUrl = 'https://uri.amap.com/navigation?to=' + poi.lng + ',' + poi.lat + ',' + encodeURIComponent(poi.name) + '&mode=car&coordinate=gaode&callnative=0';
-        var busUrl = 'https://uri.amap.com/navigation?to=' + poi.lng + ',' + poi.lat + ',' + encodeURIComponent(poi.name) + '&mode=bus&coordinate=gaode&callnative=0';
-        var popHtml = '<div style="padding:14px 16px;min-width:200px">';
-        if (poi.photos && poi.photos.length > 0) {
-          popHtml += '<img class="poi-photo-banner" src="' + poi.photos[0] + '" loading="lazy">';
+        function buildPoiPopup(p) {
+          var navUrl = 'https://uri.amap.com/navigation?to=' + p.lng + ',' + p.lat + ',' + encodeURIComponent(p.name) + '&mode=car&coordinate=gaode&callnative=0';
+          var busUrl = 'https://uri.amap.com/navigation?to=' + p.lng + ',' + p.lat + ',' + encodeURIComponent(p.name) + '&mode=bus&coordinate=gaode&callnative=0';
+          var h = '<div style="padding:14px 16px;min-width:200px">';
+          if (p.photos && p.photos.length > 0) {
+            h += '<img class="poi-photo-banner" src="' + p.photos[0] + '" loading="lazy">';
+          }
+          h += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px"><span style="font-size:15px;font-weight:700;color:' + color + '">' + p.name + '</span>';
+          var d = getDistance(p.lat, p.lng);
+          if (d) h += '<span class="poi-distance" style="font-size:12px;color:#999;flex-shrink:0">' + d + '</span>';
+          h += '</div>';
+          var rev = getReview(p);
+          if (rev) h += '<div style="font-size:11px;color:#e65100;margin-bottom:8px;line-height:1.4">“' + rev + '”</div>';
+          if (p.addr) h += '<div style="font-size:11px;color:#888;margin-bottom:6px">📍 ' + p.addr + '</div>';
+          var tags = [];
+          if (p.alevel) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;margin-right:4px">' + p.alevel + '</span>');
+          if (p.tags) {
+            p.tags.forEach(function(t) { tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + t + '</span>'); });
+          }
+          if (p.opentime) {
+            tags.push(statusHtml(p));
+            tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + p.opentime + '</span>');
+            tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + p.name.replace(/'/g, "&apos;") + '\',\'' + (p.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (p.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (p.addr||'').replace(/'/g, "&apos;") + '\',\'' + (p.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>');
+          }
+          if (tags.length) h += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
+          h += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
+          h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#3498db;text-decoration:none" href="' + navUrl + '">🚗 驾车</a>';
+          h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#27ae60;text-decoration:none" href="' + busUrl + '">🚌 公交</a>';
+          if (p.tel) {
+            var telNum = p.tel.split(';')[0];
+            h += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#9b59b6;text-decoration:none" href="tel:' + telNum + '">📞 电话</a>';
+          }
+          h += '</div>';
+          h += '</div>';
+          return h;
         }
-        popHtml += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:6px"><span style="font-size:15px;font-weight:700;color:' + color + '">' + poi.name + '</span>';
-        var mDist = getDistance(poi.lat, poi.lng);
-        if (mDist) popHtml += '<span class="poi-distance" style="font-size:12px;color:#999;flex-shrink:0">' + mDist + '</span>';
-        popHtml += '</div>';
-        var mRev = getReview(poi);
-        if (mRev) popHtml += '<div style="font-size:11px;color:#e65100;margin-bottom:8px;line-height:1.4">“' + mRev + '”</div>';
-        if (poi.addr) popHtml += '<div style="font-size:11px;color:#888;margin-bottom:6px">📍 ' + poi.addr + '</div>';
-        var tags = [];
-        if (poi.alevel) tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#fff3e0;color:#e65100;font-size:11px;margin-right:4px">' + poi.alevel + '</span>');
-        if (poi.tags) {
-          poi.tags.forEach(function(t) { tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + t + '</span>'); });
-        }
-        if (poi.opentime) {
-          tags.push(statusHtml(poi));
-          tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + poi.opentime + '</span>');
-          tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + poi.name.replace(/'/g, "&apos;") + '\',\'' + (poi.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (poi.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (poi.addr||'').replace(/'/g, "&apos;") + '\',\'' + (poi.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>');
-        }
-        if (tags.length) popHtml += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
-        popHtml += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
-        popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#3498db;text-decoration:none" href="' + navUrl + '">🚗 驾车</a>';
-        popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#27ae60;text-decoration:none" href="' + busUrl + '">🚌 公交</a>';
-        if (poi.tel) {
-          var telNum = poi.tel.split(';')[0];
-          popHtml += '<a style="flex:1;min-width:60px;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;color:#fff;background:#9b59b6;text-decoration:none" href="tel:' + telNum + '">📞 电话</a>';
-        }
-        popHtml += '</div>';
-        popHtml += '</div>';
-        var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(popHtml, {maxWidth: 260, closeButton: true, autoPanPadding: [70, 70]});
-        (function(code, p) { m.on('popupopen', function() {
+        var m = L.marker([poi.lat, poi.lng], {icon: icon}).addTo(map).bindPopup(buildPoiPopup(poi), {maxWidth: 260, closeButton: true, autoPanPadding: [70, 70]});
+        (function(code, p) { m.on('popupopen', function(e) {
           highlightBottomBar(code);
-          setTimeout(function(){
-            var pc = document.querySelector('.leaflet-popup .leaflet-popup-content');
-            if (!pc) return;
-            var distEl = pc.querySelector('.poi-distance');
-            var dist = getDistance(p.lat, p.lng);
-            if (dist) {
-              if (distEl) { distEl.textContent = dist; }
-              else {
-                var nameRow = pc.querySelector('div[style*="justify-content:space-between"]');
-                if (nameRow) {
-                  var newEl = document.createElement('span');
-                  newEl.className = 'poi-distance';
-                  newEl.style.cssText = 'font-size:12px;color:#999;flex-shrink:0';
-                  newEl.textContent = dist;
-                  nameRow.appendChild(newEl);
-                }
-              }
-            }
-          }, 50);
+          if (_userLat !== null) { e.popup.setContent(buildPoiPopup(p)); }
         }); })(adcode, poi);
         poiMarkers[adcode].push(m);
       });
