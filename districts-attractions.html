@@ -72,10 +72,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .poi-btn-tel-sm .tel-icon{font-size:13px;line-height:1}
 .poi-btn-tel-sm .tel-text{font-size:11px;line-height:1}
 .user-loc-marker{display:flex;flex-direction:column;align-items:center}
-.user-loc-label{font-size:11px;font-weight:600;color:#3b7cff;background:rgba(255,255,255,.92);padding:2px 8px;border-radius:10px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.15);margin-bottom:2px}
-.user-loc-icon{width:22px;height:22px;background:#3b7cff;border-radius:50%;border:2.5px solid #fff;box-shadow:0 2px 8px rgba(59,124,255,.45);position:relative}
-.user-loc-icon::after{content:'';position:absolute;top:4px;left:50%;transform:translateX(-50%);width:6px;height:6px;background:#fff;border-radius:50%}
-.user-loc-icon::before{content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:10px;height:6px;background:#fff;border-radius:5px 5px 0 0}
+.user-loc-label{font-size:11px;font-weight:600;color:#3b7cff;background:rgba(255,255,255,.92);padding:2px 8px;border-radius:10px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.15);margin-bottom:3px}
+.user-loc-pin{width:24px;height:24px;background:#3b7cff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #fff;box-shadow:0 2px 8px rgba(59,124,255,.5)}
 .detail-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3500;display:none;align-items:flex-end;justify-content:center}
 .detail-overlay.active{display:flex}
 .detail-panel{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:420px;max-height:70vh;overflow-y:auto;padding:24px 20px 32px;animation:slideUp .3s ease}
@@ -411,9 +409,9 @@ var _userLat = null, _userLng = null, _locWatchId = null, _locPrompted = false;
 var _userMarker = null;
 var _userLocIcon = L.divIcon({
   className: '',
-  html: '<div class="user-loc-marker"><div class="user-loc-label">您在这</div><div class="user-loc-icon"></div></div>',
-  iconSize: [60, 42],
-  iconAnchor: [30, 42]
+  html: '<div class="user-loc-marker"><div class="user-loc-label">您在这</div><div class="user-loc-pin"></div></div>',
+  iconSize: [60, 44],
+  iconAnchor: [30, 40]
 });
 // WGS-84 to GCJ-02 conversion (browser returns WGS-84, Gaode tiles use GCJ-02)
 function _wgs2gcj(wgsLat, wgsLng) {
