@@ -71,6 +71,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei
 .poi-btn-tel-sm:active{opacity:.6}
 .poi-btn-tel-sm .tel-icon{font-size:13px;line-height:1}
 .poi-btn-tel-sm .tel-text{font-size:11px;line-height:1}
+.user-loc-marker{width:18px;height:18px;position:relative}
+.user-loc-dot{width:14px;height:14px;background:#4285f4;border:3px solid #fff;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.3);position:absolute;top:2px;left:2px;z-index:2}
+.user-loc-pulse{width:18px;height:18px;background:rgba(66,133,244,.25);border-radius:50%;position:absolute;top:0;left:0;animation:locPulse 2s ease-out infinite}
+@keyframes locPulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(3);opacity:0}}
 .detail-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:3500;display:none;align-items:flex-end;justify-content:center}
 .detail-overlay.active{display:flex}
 .detail-panel{background:#fff;border-radius:20px 20px 0 0;width:100%;max-width:420px;max-height:70vh;overflow-y:auto;padding:24px 20px 32px;animation:slideUp .3s ease}
@@ -176,9 +180,10 @@ function buildPopupHtml(adcode) {
     if (poi.tags) {
       poi.tags.forEach(function(t) { h += '<span class="poi-tag tag">' + t + '</span>'; });
     }
-    h += statusHtml(poi);
     if (poi.opentime) {
-      h += '<span class="poi-tag time">🕒 ' + poi.opentime + '</span>';
+      var _s = isOpen(poi);
+      var _st = _s === null ? '' : (_s ? '<span style="color:#2e7d32;font-weight:600">开园中</span> ' : '<span style="color:#c62828;font-weight:600">已闭园</span> ');
+      h += '<span class="poi-tag time">' + _st + '🕒 ' + poi.opentime + '</span>';
       h += '<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + poi.name.replace(/'/g, "&apos;") + '\',\'' + (poi.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (poi.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (poi.addr||'').replace(/'/g, "&apos;") + '\',\'' + (poi.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>';
     }
     h += '</div>';
@@ -259,8 +264,9 @@ L.geoJSON(geoData, {
             p.tags.forEach(function(t) { tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e3f2fd;color:#1565c0;font-size:11px;margin-right:4px">' + t + '</span>'); });
           }
           if (p.opentime) {
-            tags.push(statusHtml(p));
-            tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + p.opentime + '</span>');
+            var _s2 = isOpen(p);
+            var _st2 = _s2 === null ? '' : (_s2 ? '<span style="color:#2e7d32;font-weight:600">开园中</span> ' : '<span style="color:#c62828;font-weight:600">已闭园</span> ');
+            tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px;margin-right:4px">' + _st2 + '🕒 ' + p.opentime + '</span>');
             tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + p.name.replace(/'/g, "&apos;") + '\',\'' + (p.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (p.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (p.addr||'').replace(/'/g, "&apos;") + '\',\'' + (p.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>');
           }
           if (tags.length) h += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
@@ -401,9 +407,22 @@ function closeDetail() {
 
 // --- User location & distance ---
 var _userLat = null, _userLng = null, _locWatchId = null, _locPrompted = false;
+var _userMarker = null;
+var _userLocIcon = L.divIcon({
+  className: '',
+  html: '<div class="user-loc-marker"><div class="user-loc-pulse"></div><div class="user-loc-dot"></div></div>',
+  iconSize: [18, 18],
+  iconAnchor: [9, 9]
+});
 function _onLocSuccess(pos) {
   _userLat = pos.coords.latitude;
   _userLng = pos.coords.longitude;
+  if (!_userMarker) {
+    _userMarker = L.marker([_userLat, _userLng], {icon: _userLocIcon, zIndexOffset: 500}).addTo(map);
+    _userMarker.bindPopup('<div style="padding:8px 12px;font-size:13px;font-weight:600;color:#4285f4">📍 我的位置</div>', {closeButton: false});
+  } else {
+    _userMarker.setLatLng([_userLat, _userLng]);
+  }
   var el = document.getElementById('locToast');
   if (el) { setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 500); }
 }
