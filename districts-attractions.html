@@ -180,7 +180,7 @@ function buildPopupHtml(adcode) {
     }
     if (poi.opentime) {
       h += '<span class="poi-tag time">🕒 ' + poi.opentime + '</span>';
-      h += '<a class="poi-detail-link" onclick="event.stopPropagation();showDetail('' + poi.name.replace(/'/g, "\\'") + '','' + (poi.opentime||'').replace(/'/g, "\\'") + '','' + (poi.opentime_week||'').replace(/'/g, "\\'") + '','' + (poi.addr||'').replace(/'/g, "\\'") + '','' + (poi.tel||'').replace(/'/g, "\\'") + '')">详情 &gt;</a>';
+      h += '<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + poi.name.replace(/'/g, "&apos;") + '\',\'' + (poi.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (poi.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (poi.addr||'').replace(/'/g, "&apos;") + '\',\'' + (poi.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>';
     }
     h += '</div>';
     if (poi.addr) h += '<div class="poi-addr">📍 ' + poi.addr + '</div>';
@@ -261,7 +261,7 @@ L.geoJSON(geoData, {
         }
         if (poi.opentime) {
           tags.push('<span style="display:inline-block;padding:2px 8px;border-radius:10px;background:#e8f5e9;color:#2e7d32;font-size:11px">🕒 ' + poi.opentime + '</span>');
-          tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail('' + poi.name.replace(/'/g, "\\'") + '','' + (poi.opentime||'').replace(/'/g, "\\'") + '','' + (poi.opentime_week||'').replace(/'/g, "\\'") + '','' + (poi.addr||'').replace(/'/g, "\\'") + '','' + (poi.tel||'').replace(/'/g, "\\'") + '')">详情 &gt;</a>');
+          tags.push('<a class="poi-detail-link" onclick="event.stopPropagation();showDetail(\'' + poi.name.replace(/'/g, "&apos;") + '\',\'' + (poi.opentime||'').replace(/'/g, "&apos;") + '\',\'' + (poi.opentime_week||'').replace(/'/g, "&apos;") + '\',\'' + (poi.addr||'').replace(/'/g, "&apos;") + '\',\'' + (poi.tel||'').replace(/'/g, "&apos;") + '\')">详情 &gt;</a>');
         }
         if (tags.length) popHtml += '<div style="margin-bottom:8px">' + tags.join('') + '</div>';
         popHtml += '<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center">';
